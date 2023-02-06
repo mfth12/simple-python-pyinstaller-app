@@ -7,7 +7,6 @@ node {
             sh 'python -m py_compile sources/add2vals.py sources/calc.py'
         }
     }
-
     withDockerContainer('qnib/pytest') {
         stage('Test') {
             checkout scm
@@ -15,12 +14,10 @@ node {
             junit 'test-reports/results.xml'
         }
     }
-
     stage('Manual Approval') {
         input message: 'Lanjutkan ke tahap Deploy?'
         checkout scm
     }
-    
     stage('Deploy') {
         checkout scm
         /* groovylint-disable-next-line LineLength */
